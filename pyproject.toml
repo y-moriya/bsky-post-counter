@@ -5,11 +5,15 @@ description = ""
 authors = ["ryosms <ryo.sms@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "bsky_post_counter"}]
+packages = [{include = "bsky_counter"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+atprototools = "^0.0.17"
+requests = "^2.31.0"
 
+[tool.poetry.scripts]
+bsky-counter = "bsky_counter:run"
 
 [build-system]
 requires = ["poetry-core"]

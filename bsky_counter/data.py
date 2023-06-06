@@ -1,9 +1,14 @@
-from dataclasses import dataclass, field, asdict
-from datetime import date, timedelta
+from dataclasses import dataclass, field
+from datetime import date, timedelta, datetime
+from zoneinfo import ZoneInfo
 
 
 def _default_target_date():
     return date.today() - timedelta(days=1)
+
+
+def last_date_with_tz(tz: ZoneInfo):
+    return (datetime.now(tz) - timedelta(days=1)).date()
 
 
 @dataclass

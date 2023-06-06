@@ -1,4 +1,4 @@
-from logging import config, getLogger, Logger, DEBUG
+from logging import config, getLogger, Logger, DEBUG, INFO
 
 
 class BskyCounterLogger:
@@ -27,9 +27,11 @@ class BskyCounterLogger:
     }
     _logger: Logger
 
-    def __init__(self, debug: bool = False):
+    def __init__(self, info: bool = False, debug: bool = False):
         config.dictConfig(self._CONFIG)
         self._logger = getLogger("BskyCounterLogger")
+        if info:
+            self._logger.setLevel(INFO)
         if debug:
             self._logger.setLevel(DEBUG)
 

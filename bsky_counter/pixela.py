@@ -10,8 +10,8 @@ from bsky_counter.logger import BskyCounterLogger
 class Pixela:
     RETRY_COUNT = 5
 
-    def __init__(self, logger: Logger = None, debug=False):
-        self._logger = logger if logger else BskyCounterLogger(debug).get_logger()
+    def __init__(self, logger: Logger = None):
+        self._logger = logger if logger else BskyCounterLogger().get_logger()
 
     def post_to_pixela(self, user_name: str, token: str, graph_id: str, post_summary: PostSummary):
         if not (user_name and token and graph_id):

@@ -3,7 +3,7 @@ name: Aggregate Post Summary Schedule
 on:
   workflow_dispatch:
   schedule:
-    - cron: "5 9 * * *"
+    - cron: "5 15 * * *"
 jobs:
   aggregate:
     runs-on: ubuntu-latest

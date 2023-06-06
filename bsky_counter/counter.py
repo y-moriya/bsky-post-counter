@@ -76,11 +76,12 @@ class BskyCounter:
         except:
             return None
 
-    def post_result(self, result: PostSummary):
+    def post_result(self, result: PostSummary, pixela_endpoint: str):
         content = f"{result.target_date:%Y-%m-%d}\n" + \
                   f"total: {result.total}\n" + \
                   f"repost: {result.repost}\n" + \
                   f"reply: {result.reply}\n" + \
-                  f"quote: {result.quote}"
+                  f"quote: {result.quote}\n\n" + \
+                  pixela_endpoint
         self._logger.debug(content)
         self._session.postBloot(content)

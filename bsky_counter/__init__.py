@@ -40,12 +40,13 @@ def run():
     c = BskyCounter(setting.handle, setting.password, setting.tz, logger=bsky_logger)
     result = c.run(setting.target_date)
 
+    endpoint = ""
     if setting.pixela_user and setting.pixela_graph_id and setting.pixela_token:
         p = Pixela(logger=bsky_logger)
-        p.post_to_pixela(setting.pixela_user,
-                         setting.pixela_token,
-                         setting.pixela_graph_id,
-                         result)
+        endpoint = p.post_to_pixela(setting.pixela_user,
+                                    setting.pixela_token,
+                                    setting.pixela_graph_id,
+                                    result)
 
     if setting.post_summary:
-        c.post_result(result)
+        c.post_result(result, endpoint)

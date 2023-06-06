@@ -21,11 +21,11 @@ jobs:
       - name: run aggregate
         run: |
           poetry run bsky-counter \
-            -u ${{ vars.bsky-handle }} \
-            -t ${{ vars.timezone }} \
+            -u "${{ vars.bsky-handle }}" \
+            -t "${{ vars.timezone }}" \
             ${{ vars.post-flag }} ${{ vars.logging-flag }} \
-            -p ${{ vars.pixela-user }} \
-            -g ${{ vars.pixela-graph-id }}
+            -p "${{ vars.pixela-user }}" \
+            -g "${{ vars.pixela-graph-id }}"
         env:
           BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD }}
           PIXELA_API_TOKEN: ${{ secrets.PIXELA_API_TOKEN }}

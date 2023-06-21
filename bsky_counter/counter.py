@@ -96,7 +96,7 @@ class BskyCounter:
                 "text": content
             }
         }
-        if not pixela_endpoint:
+        if pixela_endpoint:
             content_bytes = len(content.encode())
             facets = [{
                 "features": [{

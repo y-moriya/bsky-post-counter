@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from logging import Logger
 from typing import Optional
 from zoneinfo import ZoneInfo
@@ -84,4 +84,38 @@ class BskyCounter:
                   f"quote: {result.quote}\n\n" + \
                   pixela_endpoint
         self._logger.debug(content)
-        self._session.postBloot(content)
+
+        created_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+        data = {
+            "collection": "app.bsky.feed.post",
+            "$type": "app.bsky.feed.post",
+            "repo": self._session.DID,
+            "record": {
+                "$type": "app.bsky.feed.post",
+                "createdAt": created_at,
+                "text": content
+            }
+        }
+        if not pixela_endpoint:
+            content_bytes = len(content.encode())
+            facets = [{
+                "features": [{
+                    "$type": "app.bsky.richtext.facet#link",
+                    "uri": pixela_endpoint,
+                }],
+                "index": {
+                    "byteStart": content_bytes - len(pixela_endpoint.encode()),
+                    "byteEnd": content_bytes
+                }
+            }]
+            data["record"]["facets"] = facets
+
+        self._logger.debug(data)
+        headers = {"Authorization": f"Bearer {self._session.ATP_AUTH_TOKEN}"}
+        res = requests.post(
+            f"{self._session.ATP_HOST}/xrpc/com.atproto.repo.createRecord",
+            json=data,
+            headers=headers
+        )
+        self._logger.info(f"post result: {res.status_code}")
+        self._logger.debug(res.text)

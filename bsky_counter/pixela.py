@@ -32,7 +32,7 @@ class Pixela:
         self._logger.debug(payload)
 
         self._post(endpoint, payload, headers)
-        return endpoint
+        return f"{endpoint}.html"
 
     def _post(self, endpoint, payload, headers, retry_count=0):
         if retry_count >= self.RETRY_COUNT:

@@ -1,6 +1,6 @@
 # bsky-post-counter
 
-Count bsky posts and record with pixela.
+Count bsky posts and record with pixela..
 
 ## Require
 
